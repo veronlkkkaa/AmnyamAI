@@ -133,7 +133,9 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
 
             } catch (e: GetCredentialCancellationException) {
                 Log.w(TAG, "startGoogleSignIn: пользователь отменил вход или ошибка конфигурации (SHA-1/Client ID)", e)
-                _registerState.value = RegisterState.Error("Вход отменен. Проверьте SHA-1 в консоли Google.")
+                _registerState.value = RegisterState.Error(
+                    "Вход отменен. Если вы не отменяли вход сами, проверьте SHA-1 и packageName в Google Cloud Console."
+                )
             } catch (e: GetCredentialException) {
                 Log.e(TAG, "startGoogleSignIn: GetCredentialException — type=${e.type}", e)
                 _registerState.value = RegisterState.Error("Ошибка входа через Google: ${e.message}")
